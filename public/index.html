@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Track Facts</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <style> 
+      #unread, #read {
+        width: 40%;
+        background-color: antiquewhite;
+      }
+      #unread { float: left; }
+      #read { float: right; }
+      table, td {
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+      }
+      #wrapper {
+      background-color: #1A8B9D;
+        width: 960px;
+        padding-top: 10%;
+        padding-bottom: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      body {
+        font-family: 'Open Sans', sans-serif;
+        color: white;
+        background-color: #FFF5F5;
+      }
+      h1 {
+        size: 20px;
+      }
+      #results { margin-top: 50px; }
+      #userinput { font-size: 24px; }
+      input {
+        width: 50%;
+        height: 36px;
+        font-size: 24px;
+      }
+      footer {
+        background-color: #B2D430;
+        width: 20px;
+        height: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>Track Facts</h1>
+      <h2>THE LATEST AND GREATEST IN ARTICLE TRACKING TECHNOLOGY!</h2>
+      <form id="userinput">
+          <input type="text" id="title" placeholder="Article Title"/>
+        <br />
+          <input type="text" id="author" placeholder="Article Author"/>
+        <br />
+        <button type="submit" id="addArticle">Add New</button>
+      </form>
+      <div id="results">
+        <table id="unread">
+              <tr><th>Title</th><th>Author</th><th>Read/Unread</th></tr>
+        </table>
+        <table id="read">
+              <tr><th>Title</th><th>Author</th><th>Read/Unread</th></tr>
+        </table>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
