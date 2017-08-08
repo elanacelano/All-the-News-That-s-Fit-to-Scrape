@@ -17,6 +17,7 @@
         border-color: black;
       }
       #wrapper {
+        background-color: #000000;
         width: 960px;
         padding-top: 10%;
         margin-left: auto;
@@ -29,11 +30,19 @@
       }
       h1 {
         font-family: 'Montserrat', sans-serif;
-        size: 20px;
+        font-size: 500%;
         color: #B2D430;
       }
+      h2 {
+        color: white;
+        padding: 15px;
+        bottom: 15px;
+      }
       #results { margin-top: 50px; }
-      #userinput { font-size: 24px; }
+      #userinput { 
+        font-size: 24px;
+        text-align: center; 
+      }
       input {
         width: 50%;
         height: 36px;
