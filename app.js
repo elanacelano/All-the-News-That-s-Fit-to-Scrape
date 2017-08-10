@@ -1,6 +1,6 @@
 // Click Events
 
-// Click event to add a book to the db
+// Click event to add an article to the db
 $("#addbook").on("click", function() {
   $.ajax({
     type: "POST",
@@ -22,7 +22,7 @@ $("#addbook").on("click", function() {
   return false;
 });
 
-// Click event to mark a book as read
+// Click event to mark an article as read
 $(document).on("click", ".markread", function() {
   var thisId = $(this).attr("data-id");
   $.ajax({
@@ -33,7 +33,7 @@ $(document).on("click", ".markread", function() {
   getRead();
 });
 
-// Click event to mark a book as not read
+// Click event to mark an article as not read
 $(document).on("click", ".markunread", function() {
   var thisId = $(this).attr("data-id");
   $.ajax({

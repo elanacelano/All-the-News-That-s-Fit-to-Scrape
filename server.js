@@ -160,6 +160,6 @@ app.post("/unread", function(req, res) {
 //rec.body()
 
 // Listen on port 3000
-app.listen(27017, function() {
+app.listen(3000, function() {
   console.log("App running on port 3000!");
 });
