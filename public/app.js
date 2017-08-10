@@ -1,5 +1,3 @@
-// Click Events
-
 // Click event to add an article to the db
 $("#addArticle").on("click", function() {
   $.ajax({
