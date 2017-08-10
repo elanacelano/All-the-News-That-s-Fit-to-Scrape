@@ -1,7 +1,7 @@
 // Click Events
 
 // Click event to add an article to the db
-$("#addbook").on("click", function() {
+$("#addArticle").on("click", function() {
   $.ajax({
     type: "POST",
     url: "/submit",
@@ -47,7 +47,7 @@ $(document).on("click", ".markunread", function() {
 
 // Functions
 
-// Load unread books and render them to the screen
+// Load unread Articles and render them to the screen
 function getUnread() {
   $("#unread").empty();
   $.getJSON("/unread", function(data) {
@@ -59,7 +59,7 @@ function getUnread() {
   });
 }
 
-// Load read books and render them to the screen
+// Load read Articles and render them to the screen
 function getRead() {
   $("#read").empty();
   $.getJSON("/read", function(data) {
