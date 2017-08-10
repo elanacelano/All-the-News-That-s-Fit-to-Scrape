@@ -50,11 +50,11 @@ app.get("/scrape", function(req, res) {
   request("http://www.msnbc.com/", function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
-    // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    // Now, we grab every article tag, and do the following:
+    $("p.title").each(function(i, element) {
 
       // Save an empty result object
-      var result = {};
+      var results =  [];
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this).children("a").text();
@@ -155,6 +155,12 @@ app.post("/unread", function(req, res) {
     }
   });
 };
+
+  results.push({
+    title: title,
+    link, link
+  });
+});  
 
 
 //rec.body()
