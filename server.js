@@ -1,4 +1,5 @@
 // Dependencies
+var mongo = require("mongodb");
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
@@ -59,8 +60,7 @@ app.get("/scrape", function(req, res) {
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
 
-      // Using our Article model, create a new entry
-      // This effectively passes the result object to the entry (and the title and link)
+      // create a new entry
       var entry = new Article(result);
 
       // Now, save that entry to the db
@@ -95,11 +95,7 @@ app.get("/articles", function(req, res) {
 
 // This will grab an article by it's ObjectId
 app.get("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // Finish the route so it finds one article using the req.params.id,
-  // and run the populate method with "note",
-  // then responds with the article with the note included
+
   Article
   .findOne({
     _id: req.params.id
@@ -114,13 +110,9 @@ app.get("/articles/:id", function(req, res) {
   });
 });
 
-// Create a new note or replace an existing note
+// Create a new note 
 app.post("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // save the new note that gets posted to the Notes collection
-  // then find an article from the req.params.id
-  // and update it's "note" property with the _id of the new note
+
   var newNote = new Note(req.body);
   newNote.save(function (err, doc){
     if (err) {
@@ -143,8 +135,31 @@ app.post("/articles/:id", function(req, res) {
   });
 });
 
+app.post("/unread", function(req, res) {
+ if (err) {
+      console.log("Error saving note to the database.");
+    } else {
+      Article
+      .findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        note: doc._id
+      })
+      .exec(function (err, doc) {
+        if (err) {
+          console.log("Error updating article.")
+        } else {
+          res.send(doc);
+        }
+      });
+    }
+  });
+};
+
+
+//rec.body()
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(27017, function() {
   console.log("App running on port 3000!");
 });
