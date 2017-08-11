@@ -10,6 +10,7 @@ var Article = require("./models/Article.js");
 // Our scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
+
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
@@ -47,24 +48,29 @@ db.once("open", function() {
 // A GET request to scrape the echojs website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
+  console.log("Making a request to MSNBC");
+
   request("http://www.msnbc.com/", function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
+
     // Now, we grab every article tag, and do the following:
-    $("p.title").each(function(i, element) {
+    $("a.featured-slider-menu__item__link").each(function(i, element) {
 
       // Save an empty result object
-      var results =  [];
+      var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).children("a").text();
-      result.link = $(this).children("a").attr("href");
+      result.title = $(this).find(".featured-slider-menu__item__link__title").text();
+      result.link = $(this).attr("href");
 
       // create a new entry
       var entry = new Article(result);
 
+      console.log("Creating a new article", entry);
+
       // Now, save that entry to the db
-      entry.save(function(err, doc) {
+      /*entry.save(result, function(err, doc) {
         // Log any errors
         if (err) {
           console.log(err);
@@ -73,7 +79,7 @@ app.get("/scrape", function(req, res) {
         else {
           console.log(doc);
         }
-      });
+      });*/
 
     });
   });
@@ -126,7 +132,7 @@ app.post("/articles/:id", function(req, res) {
       })
       .exec(function (err, doc) {
         if (err) {
-          console.log("Error updating article.")
+          console.log("Error updating article.");
         } else {
           res.send(doc);
         }
@@ -136,24 +142,26 @@ app.post("/articles/:id", function(req, res) {
 });
 
 app.post("/unread", function(req, res) {
- if (err) {
-      console.log("Error saving article to the database.");
-    } else {
-      Article
-      .findOneAndUpdate({
-        _id: req.params.id
-      }, {
-        article: doc._id
-      })
-      .exec(function (err, doc) {
-        if (err) {
-          console.log("Error updating article.")
-        } else {
-          res.send(doc);
-        }
-      });
-    }
-  });
+  if (err) {
+    console.log("Error saving article to the database.");
+  } else {
+    Article
+    .findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      article: doc._id
+    })
+    .exec(function (err, doc) {
+      if (err) {
+        console.log("Error updating article.");
+      } else {
+        res.send(doc);
+      }
+    });
+  }
+});
+
+/*
 };
 
   results.push({
@@ -161,7 +169,7 @@ app.post("/unread", function(req, res) {
     link, link
   });
 });  
-
+*/
 
 //rec.body()
 
